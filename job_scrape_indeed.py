@@ -13,8 +13,8 @@ class_select = driver.find_element_by_link_text('Sign in')
 class_select.click()
 time.sleep(10)
 
-email = 'aronpnybs@gmail.com'
-password = 'DB8q87TEsXdfTSi'
+email = '##'
+password = '##'
 id_box = driver.find_element_by_id('login-email-input')
 pass_box = driver.find_element_by_id('login-password-input')
 time.sleep(5)
