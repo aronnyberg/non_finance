@@ -3,7 +3,7 @@ import docx
 from docx import Document
 
 df = pd.read_csv('YOUR JOB INFO DF')
-loc = 'YOUR DOCX COVER LETTER TEMPLATE'  #This should have two variables which will be changed, {descr..organization} and {descr..organization2}
+loc = 'YOUR DOCX COVER LETTER TEMPLATE'  #This should have three variables within the text which will be changed, {company}, {descr..organization} and {descr..organization2}
 end_loc = 'WHAT FOLDER IN WHICH TO SAVE FILE'
 def create_cover(OGRE, ZEBRAS):
     document = Document()
@@ -19,7 +19,7 @@ number = 0 #Change this number, going down a list
 index = df[df['QuickApply?']=='Yes'].iloc[0,:]['Unnamed: 0']   #Filter to only 'QuickApply?'=Yes
 df[df['Unnamed: 0']==index]['Description'].values #Print description of filtered list, selecting the number above
 
-#Here you read the cover letter and change the 
+#Here you read the cover letter and change the below two decriptive variables
 
 
 create_cover('ENTER DESCRIPTION SENTENCE 1 HERE','ENTER DESCRIPTION SENTENCE 2 HERE')
