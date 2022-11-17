@@ -6,8 +6,9 @@ import pandas as pd
 adict = {"Item Title":[], "Item Price":[]}
 #ebay page url, for loop adds page number
 ebayUrl = "https://www.ebay.co.uk/sch/i.html?_from=R40&_nkw=20kg+weight+plates&_in_kw=1&_ex_kw=&_sacat=0&LH_Sold=1&_udlo=&_udhi=&_samilow=&_samihi=&_sadis=15&_sargn=-1%26saslc%3D1&_fsradio2=%26LH_LocatedIn%3D1&_salic=3&LH_SubLocation=1&_sop=13&_dmd=1&_ipg=60&LH_Complete=&_pgn="
+csvPath = '~/code/non_finance/weightPlateData.csv'
 
-existingDataDF = pd.read_csv('~/code/non_finance/weightPlateDataTrial.csv')
+existingDataDF = pd.read_csv(csvPath)
 #don't think i need to catch a failed url, as failed url means we've run out of pages
 toBreak = False
 while toBreak == False:
@@ -45,7 +46,7 @@ if len(df) > 2:
     print("new data rows are:", df)
 
     df = df.append(existingDataDF)
-    df.to_csv('~/code/non_finance/weightPlateDataTrial.csv')
+    df.to_csv(csvPath)
 else:
 # df should only list whatever it collected, ie whatever wasn't already in the csv
     print('nothing new added')
