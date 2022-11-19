@@ -7,9 +7,13 @@ from bs4 import BeautifulSoup
 import time
 
 def pullDynamo():
-    pass
+    #pull existing data from Dynamodb
+    df = pd.DataFrame()
+    return df
 
 def pullData():
+    # pull old data
+    existingDataDF = pullDynamo()
     #dict to hold the data in
     adict = {"Item Title":[], "Item Price":[], "Unix Timestamp (collected)":[]}
     #ebay page url, for loop adds page number
@@ -48,8 +52,7 @@ def pullData():
     
     df = pd.DataFrame(adict)
     if len(df) > 2:
-        #need to merge the data sets together here
-        # here print the new data to be added
+        # returns df of new data to be added
         return df
     else:
     # df should only list whatever it collected, ie whatever wasn't already in the csv
@@ -58,7 +61,7 @@ def pullData():
     
 def dynamoDump():
     dynamodb = boto3.resource('dynamodb')
-    table = dynamodb.Table('btc')
+    table = dynamodb.Table('ebayPlateData')
     with table.batch_writer() as batch:
         for index, row in pullData().iterrows():
             batch.put_item(json.loads(row.to_json(), parse_float=Decimal))
