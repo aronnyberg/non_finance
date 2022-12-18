@@ -56,6 +56,7 @@ def pullData():
 
             # if current listing was the last added in the database )
             #
+            print(each_title)
             # if this particular listing is the same as the newest already added listing
             if each_title == existingDataDF.iloc[-1,:]['Item Title']:
                 #print(existingDataDF.iloc[-1,:]['Item Title'])
@@ -76,7 +77,7 @@ def pullData():
             #specifying the £ sound to be the first character in item price ensures the html not accidentally picked up there.
             # and we don't want to remove a price without removing the item, so best to exclude the item before it's added to our lists.
             if str(each_price)[:1] == "£":
-                existingListingsN +=1
+                #existingListingsN +=1
                 newListingsN += 1
                 adict['Item Title'].append(each_title)
                 adict['Item Price'].append(each_price)
@@ -95,9 +96,10 @@ def pullData():
         # switch around so last collected (oldest) are at the top
         df.sort_values(by=['Listings Collected Number'], ascending=False, inplace=True)
         # get the numbers the right way round
-        df['Listings Collected Number'] = range(len(df))
+        #Doesn't this need to be + 1? No, because existingsListingsN is a count variable, ie n is 1 less than length
+        df['Listings Collected Number'] = range(newListingsN) + existingListingsN 
         #and add those to the existing df so have a sequence of all listings in date order
-        df['Listings Collected Number'] = df['Listings Collected Number']+existingListingsN + 1
+        #df['Listings Collected Number'] = df['Listings Collected Number']+existingListingsN + 1
         # returns df of new data to be added
         print("expecting "+str(newListingsN)+" new listings to be added")
         return newListingsN, df
@@ -106,6 +108,7 @@ def pullData():
         newListingsN = 0
         print("expecting no new listings to be added")
         return newListingsN
+
 
 
 def dynamoDump():
@@ -121,8 +124,8 @@ def dynamoDump():
             #if newDF == None:
             #    
             #else:
-            # I don't think the following catch is needed anymore
-            if sum(newDF.index) > 0:
+            # I don't think the following catch is needed anymore, only checking dataframe (already checked created) has something in it
+            if len(newDF.index) > 0:
                 n2 = 0
                 #print("working through here")
                 try:
